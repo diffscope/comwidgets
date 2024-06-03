@@ -1,2 +1,8 @@
-# comwidgets
-DiffScope Application Common Widgets
+# IDE Core
+
+ChorusKit IDE Application Foundation.
+
+## Dependencies
+
++ ChoursKit
++ Talcs
