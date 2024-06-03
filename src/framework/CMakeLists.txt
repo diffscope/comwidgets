@@ -1,4 +1,4 @@
-project(idecoreLyric
+project(idecoreFramework
     VERSION ${SVSCRAFT_VERSION}
     LANGUAGES CXX
 )
@@ -7,11 +7,11 @@ file(GLOB_RECURSE _src *.h *.cpp)
 
 idecore_add_library(${PROJECT_NAME} AUTOGEN
     SOURCES ${_src}
-    LINKS idecoreFramework
+    LINKS ChorusKit::AppCore SVSCraft::Widgets
     QT_LINKS Core Gui Widgets
     QT_INCLUDE_PRIVATE Core Gui Widgets
     INCLUDE_PRIVATE *
-    PREFIX IDECORE_AUDIO
+    PREFIX IDECORE_FRAMEWORK
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
