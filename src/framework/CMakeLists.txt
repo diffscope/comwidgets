@@ -1,13 +1,16 @@
 project(idecoreFramework
-    VERSION ${SVSCRAFT_VERSION}
+    VERSION ${IDECORE_VERSION}
     LANGUAGES CXX
 )
 
 file(GLOB_RECURSE _src *.h *.cpp)
 
+find_package(ExtensionSystem REQUIRED)
+
 idecore_add_library(${PROJECT_NAME} AUTOGEN
     SOURCES ${_src}
-    LINKS ChorusKit::AppCore SVSCraft::Widgets
+    LINKS ChorusKit::AppCore svscraft::Widgets
+    LINKS_PRIVATE ExtensionSystem::ExtensionSystem
     QT_LINKS Core Gui Widgets
     QT_INCLUDE_PRIVATE Core Gui Widgets
     INCLUDE_PRIVATE *

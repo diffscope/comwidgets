@@ -1,5 +1,5 @@
 project(idecoreLyric
-    VERSION ${SVSCRAFT_VERSION}
+    VERSION ${IDECORE_VERSION}
     LANGUAGES CXX
 )
 

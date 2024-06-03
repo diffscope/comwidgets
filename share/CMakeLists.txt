@@ -16,6 +16,7 @@ if(IDECORE_BUILD_TRANSLATIONS)
         QM_DIR ${_qm_dir}
         TS_DEPENDS idecore_lupdate_task
         QM_DEPENDS idecore_lrelease_task
+        CREATE_ONCE
     )
 
     if(IDECORE_INSTALL)

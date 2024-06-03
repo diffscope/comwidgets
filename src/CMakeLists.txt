@@ -4,6 +4,10 @@ if(NOT TARGET ChorusKit::AppCore)
     find_package(ChorusKit REQUIRED)
 endif()
 
+if(NOT TARGET svscraft::Widgets)
+    find_package(SVSCraft REQUIRED)
+endif()
+
 set(IDECORE_PROJECT_DESCRIPTION "ChorusKit IDE Application Foundation")
 set(IDECORE_PROJECT_COPYRIGHT "Copyright 2023-2024 Team OpenVPI")
 set(IDECORE_GENERATED_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/../include)
@@ -17,11 +21,11 @@ set(QMSETUP_DEFINITION_NUMERICAL on)
 
 qm_add_definition(IDECORE_TEST_CONFIG true)
 
-qm_generate_config(${IDECORE_BUILD_INCLUDE_DIR}/idecoreCore/idecoreconfig.h)
+qm_generate_config(${IDECORE_BUILD_INCLUDE_DIR}/idecoreFramework/idecoreconfig.h)
 
 if(IDECORE_INSTALL)
-    install(FILES ${IDECORE_BUILD_INCLUDE_DIR}/idecoreCore/idecoreconfig.h
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${IDECORE_INSTALL_NAME}/idecoreCore
+    install(FILES ${IDECORE_BUILD_INCLUDE_DIR}/idecoreFramework/idecoreconfig.h
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${IDECORE_INSTALL_NAME}/idecoreFramework
     )
 endif()
 
@@ -50,6 +54,7 @@ macro(idecore_add_library _target)
 
     if(WIN32 AND NOT FUNC_NO_WIN_RC AND(${_type} STREQUAL "SHARED"))
         qm_add_win_rc(${_target}
+            NAME ${IDECORE_INSTALL_NAME}
             DESCRIPTION ${IDECORE_PROJECT_DESCRIPTION}
             COPYRIGHT ${IDECORE_PROJECT_COPYRIGHT}
         )
@@ -123,11 +128,7 @@ endmacro()
 # ----------------------------------
 # Main Project
 # ----------------------------------
-add_subdirectory(3rdparty)
-
-add_subdirectory(core)
-
-add_subdirectory(widgets)
+add_subdirectory(framework)
 
 # ----------------------------------
 # Documentation
@@ -143,7 +144,7 @@ if(IDECORE_BUILD_DOCUMENTATIONS)
         set(_install_options INSTALL_DIR share/doc/${IDECORE_INSTALL_NAME})
     endif()
 
-    set(_doc_targets idecoreCore)
+    set(_doc_targets idecoreFramework)
 
     set(IDECORE_DOXYGEN_TAGFILE
         ${CMAKE_BUILD_SHARE_DIR}/doc/${IDECORE_INSTALL_NAME}/${IDECORE_INSTALL_NAME}_tagfile.xml
