@@ -44,15 +44,9 @@ macro(idecore_add_library _target)
         set(CMAKE_AUTORCC ON)
     endif()
 
-    if(IDECORE_BUILD_STATIC)
-        set(_type STATIC)
-    else()
-        set(_type SHARED)
-    endif()
+    add_library(${_target} SHARED ${_type})
 
-    add_library(${_target} ${_type})
-
-    if(WIN32 AND NOT FUNC_NO_WIN_RC AND(${_type} STREQUAL "SHARED"))
+    if(WIN32 AND NOT FUNC_NO_WIN_RC)
         qm_add_win_rc(${_target}
             NAME ${IDECORE_INSTALL_NAME}
             DESCRIPTION ${IDECORE_PROJECT_DESCRIPTION}
